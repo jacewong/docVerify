@@ -12,7 +12,7 @@ function getBlockChainInfo(){
 		for(var i = ret; i >0; i--)
 		{
 			doc.getDocument.call(i).then(function(result){
-				console.log(result[4]);
+				console.log(result[4].toNumber());
 				//区块号
 				var blockNum = result[0].c[0];
 				//hash
@@ -22,30 +22,36 @@ function getBlockChainInfo(){
 				//接受账户
 				var to = result[3];
 				//时间戳
-				var time = result[4].c[0];
+				var time = result[4].toNumber();
 			})
 		}
 	})
 }
-
+	
 function docVerify(){
 	doc.documentExists.call(hash).then(
 		function(res){
 			//console.log(hash);
 			//console.log(res);
 			if(res == true)
-				alert("文件已经在区块链中被确认！认证成功！");
-			else{
-				console.log(hash);
-				console.log(accounts);
-				doc.newDocument(hash,{from: accounts[0], gas: 3000000}).then(function(){
-				return doc.getLatest.call(); 
-		}).then(function(result){
-				console.log(result.toNumber());	
-		
-		}).catch(function(e){
-				console.log(e)});
+				alert("文件曾经在区块链中被确认！认证成功！");
+			else
+			{
+				if(confirm("该文件没有在区块链中认证，您需要添加认证吗？"))
+				{
+					doc.newDocument(hash,{from: accounts[0], gas: 3000000}).then(function(tx){
+						//console.log(tx);
+						return doc.documentExists.call(hash); 
+					}).then(function(res){
+					//	console.log(res);	
+						if(res == true) alert("添加成功！");
+						else alert("添加失败");
+					}).catch(function(e){
+						console.log(e)});  
 				}
+				
+				
+			}
 		});
 	}
 $('document').ready(function(){

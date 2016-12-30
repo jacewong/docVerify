@@ -5859,9 +5859,9 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         "type": "event"
       }
     },
-    "updated_at": 1483090931645,
+    "updated_at": 1483101993926,
     "links": {},
-    "address": "0x3dd110b9a93eba4d7a91fa2ec418baa5a264f094"
+    "address": "0x445fdcb318429196de0a2a3fccc724bf350421e5"
   }
 };
 
@@ -6402,8 +6402,8 @@ var SolidityEvent = require("web3/lib/web3/event.js");
     ],
     "unlinked_binary": "0x606060405234610000575b60008054600160a060020a03191633600160a060020a03161790555b5b610190806100366000396000f300606060405263ffffffff60e060020a6000350416630900f0108114610045578063445df0ac146100605780638da5cb5b1461007f578063fdacd576146100a8575b610000565b346100005761005e600160a060020a03600435166100ba565b005b346100005761006d61012d565b60408051918252519081900360200190f35b346100005761008c610133565b60408051600160a060020a039092168252519081900360200190f35b346100005761005e600435610142565b005b6000805433600160a060020a03908116911614156101275781905080600160a060020a031663fdacd5766001546040518263ffffffff1660e060020a02815260040180828152602001915050600060405180830381600087803b156100005760325a03f115610000575050505b5b5b5050565b60015481565b600054600160a060020a031681565b60005433600160a060020a039081169116141561015f5760018190555b5b5b505600a165627a7a7230582052a2cb24c107c3198c1697dd1b318b3606e85815f825578825141501787cb7130029",
     "events": {},
-    "updated_at": 1483090931648,
-    "address": "0xc916d483cda1e9f7b1b2174ec5efacde2fb1c4f0",
+    "updated_at": 1483101993932,
+    "address": "0xc737931e6a4669b2ed8b69a350167cd717197620",
     "links": {}
   }
 };
@@ -43610,7 +43610,7 @@ function getBlockChainInfo(){
 		for(var i = ret; i >0; i--)
 		{
 			doc.getDocument.call(i).then(function(result){
-				console.log(result[4]);
+				console.log(result[4].toNumber());
 				//区块号
 				var blockNum = result[0].c[0];
 				//hash
@@ -43620,30 +43620,36 @@ function getBlockChainInfo(){
 				//接受账户
 				var to = result[3];
 				//时间戳
-				var time = result[4].c[0];
+				var time = result[4].toNumber();
 			})
 		}
 	})
 }
-
+	
 function docVerify(){
 	doc.documentExists.call(hash).then(
 		function(res){
 			//console.log(hash);
 			//console.log(res);
 			if(res == true)
-				alert("文件已经在区块链中被确认！认证成功！");
-			else{
-				console.log(hash);
-				console.log(accounts);
-				doc.newDocument(hash,{from: accounts[0], gas: 3000000}).then(function(){
-				return doc.getLatest.call(); 
-		}).then(function(result){
-				console.log(result.toNumber());	
-		
-		}).catch(function(e){
-				console.log(e)});
+				alert("文件曾经在区块链中被确认！认证成功！");
+			else
+			{
+				if(confirm("该文件没有在区块链中认证，您需要添加认证吗？"))
+				{
+					doc.newDocument(hash,{from: accounts[0], gas: 3000000}).then(function(tx){
+						//console.log(tx);
+						return doc.documentExists.call(hash); 
+					}).then(function(res){
+					//	console.log(res);	
+						if(res == true) alert("添加成功！");
+						else alert("添加失败");
+					}).catch(function(e){
+						console.log(e)});  
 				}
+				
+				
+			}
 		});
 	}
 $('document').ready(function(){
