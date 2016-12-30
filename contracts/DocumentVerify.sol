@@ -1,0 +1,87 @@
+pragma solidity ^0.4.7;
+contract DocumentVerify {
+    address owner;
+    uint latestDocument;
+    struct DocumentTransfer {
+        uint blockNumber;
+        string hash;
+        address from;
+        address to;
+        uint256 timeStamp;
+    }
+    mapping(uint => DocumentTransfer) private history;
+    mapping(string => bool) private usedHashes;
+    mapping(string => address) private documentHashMap;
+    event DocumentEvent(uint blockNumber, string hash, address from, address to, uint256 timeStamp);
+
+    function DocumentVerify(){
+        owner = msg.sender; 
+    }
+    
+
+    function empty(){
+     uint256 balance = address(this).balance;
+     if(!address(owner).send(balance))
+        throw;
+    }
+    
+    function newDocument(string hash) returns (bool success){
+        if (documentExists(hash)) {
+            success = false;
+        }else{
+
+            createHistory(hash, msg.sender, msg.sender);
+            usedHashes[hash] = true;
+            success = true;
+        }
+        return success;
+    }
+
+    function createHistory (string hash, address from, address to) internal{
+            ++latestDocument;
+            documentHashMap[hash] = to;
+            usedHashes[hash] = true;
+            history[latestDocument] = DocumentTransfer(block.number, hash, from, to, block.timestamp);
+            DocumentEvent(block.number, hash, from,to, block.timestamp);
+    }
+    
+    function transferDocument(string hash, address recipient) returns (bool success){
+        success = false;
+           
+        if (documentExists(hash)){
+            if (documentHashMap[hash] == msg.sender){
+                createHistory(hash, msg.sender, recipient);
+                success = true;
+            }
+        }
+         
+        return success;
+    }
+    
+    function documentExists(string hash) public constant returns (bool exists){
+        if (usedHashes[hash]) {
+            exists = true;
+        }else{
+            exists= false;
+        }
+        return exists;
+    }
+    
+    function getDocument(uint docId) public constant returns (uint blockNumber, string hash, address from, address to, uint256 timeStamp){
+        DocumentTransfer doc = history[docId];
+        blockNumber = doc.blockNumber;
+        hash = doc.hash;
+        from = doc.from;
+        to = doc.to;
+        timeStamp = doc.timeStamp;
+		return (blockNumber, hash, from, to, timeStamp);
+    }
+    
+    
+    
+    function getLatest() public constant returns (uint latest){
+        return latestDocument;
+    }
+    
+
+}
