@@ -5,25 +5,27 @@
 a{
 	text-decoration: none;
 }
-
-html,body{
+html{
 	height: 100%;
+}
+body{
 	min-height: 100%;
-	font-family: "Microsoft Yahei"
+	padding-bottom: 120px;
+	font-family: "Microsoft Yahei";
+	background-image: url(../images/backgroud.jpg);
+	background-attachment: fixed;
 }
 
 .main-wraper{
 	min-width: 950px;
-	padding-top: 50px;
-	min-height: 100%;
-	background-image: url(../images/backgroud.jpg);
-	background-attachment: fixed;
+	padding-top: 30px;
+	height: 100%;
 }
 .main-box{
 	width: 80%;
 	margin: 0 auto;
 	background-color: #E7E7E7;
-	padding: 50px 80px 80px;
+	padding: 30px 80px 40px;
 	border-radius: 30px;
 }
 
@@ -86,13 +88,31 @@ label{
 
 .local-file-btn{
 	position: absolute;
-	right: 20px;
+	right: 50%;
 	bottom: 0;
+}
+.transfer-btn{
+	position: absolute;
+	right: 16.8%;
+	bottom: 0;
+}
+
+.trade-info{
+	margin-top: 10px;
+	border: 1px solid #d9edf7;
+}
+.trade-info th{
+	background-color: #d9edf7;
+}
+.trade-info td,.trade-info th{
+	text-align: center;
 }
 
 footer{
 	position: fixed;
 	bottom: 0;
+	/*margin-top: 20px;*/
+	height: 100px;
 	width: 100%;
 	background-color: #000;
 	text-align: center;
@@ -108,7 +128,7 @@ footer p{
 	display: none;
 }
 
-.url-form{
+.transaction-panel{
 	position: relative;
 	padding-bottom: 50px;
 }
