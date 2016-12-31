@@ -18,7 +18,7 @@ contract DocumentVerify {
         owner = msg.sender; 
     }
     
-    // In case you sent funds by accident
+
     function empty(){
      uint256 balance = address(this).balance;
      if(!address(owner).send(balance))
@@ -36,6 +36,7 @@ contract DocumentVerify {
         }
         return success;
     }
+
     function createHistory (string hash, address from, address to) internal{
             ++latestDocument;
             documentHashMap[hash] = to;
