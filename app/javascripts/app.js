@@ -2,7 +2,7 @@ var accounts;
 var account;
 var doc;
 var hash;
-//初始胡合约
+//初始化合约
 function initialContract(){
 	doc = DocumentVerify.deployed();
 };
@@ -25,8 +25,10 @@ function getBlockChainInfo(){
 					//接受账户
 					var to = result[3];
 					//时间戳
-					var time = new Date(result[4]).toLocaleString().substr(0,10);
-
+					var newDate = new Date();
+					newDate.setTime(result[4]*1000);
+					var time = newDate.toLocaleString().substr(0,10);
+					//var time = new Date(result[4].toNumber()).toLocaleString().substr(0,10);
 					var str = '<tr><td>'+blockNum+'</td><td>'
 								+currentHash+'</td><td>'
 								+from+'</td><td>'
@@ -107,13 +109,51 @@ function transfer(){
 		$('#account-input').focus();
 		return;
 	}
+	doc.documentExists.call(fileHash).then(
+		function(res){
+			if(res == false)
+			{
+				alert("该文件在区块链中没有被确认！");
+				return;
+			}
+				
+			else{
+				if(accountExist(toAccount) == false)
+					alert("该账户不存在！");  
+				else{
+					doc.transferDocument(fileHash,toAccount,{from: accounts[0], gas: 3000000})
+					.then(function(tx){
+						getBlockChainInfo();
+						alert("添加成功！");
+					});
+				}	
+
+			}
+				
+
+		});
 	//传入后台需验证：1.文件是否存在；2.账户是否存在。
 
 }
 
+function accountExist(toAccount){
+	//console.log(toAccount);
+	//console.log(accounts.length);
+	for(var i = 0; i < accounts.length; i++)
+	{
+		if(toAccount == accounts[i].toString())
+		{	
+			//console.log(toAccount);
+			//console.log(accounts[i].toString());	
+			return true;
+		}
+			
+	}
+	return false;
+}
+
 //主入口
 $('document').ready(function(){
-	getBlockChainInfo();
 	// 导航设置
 	$('#myTab a').click(function (e) {
 	  e.preventDefault();
