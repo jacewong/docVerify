@@ -27,13 +27,13 @@ function getBlockChainInfo(){
 					//时间戳
 					var newDate = new Date();
 					newDate.setTime(result[4]*1000);
-					var time = newDate.toLocaleString().substr(0,9);
+					var time = newDate.toLocaleString().split(' ');
 					//var time = new Date(result[4].toNumber()).toLocaleString().substr(0,10);
 					var str = '<tr><td>'+blockNum+'</td><td>'
 								+currentHash+'</td><td>'
 								+from+'</td><td>'
 								+to+'</td><td>'
-								+time+'</td></tr>';
+								+time[0]+'</td></tr>';
 					$('.add-trade').append(str);
 				})
 			}

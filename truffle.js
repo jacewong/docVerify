@@ -19,7 +19,8 @@ module.exports = {
 	"bootstrap.min.css":[
 	  "stylesheets/bootstrap.min.css"
 	],
-    "images/": "images/"
+    "images/": "images/",
+	"fonts/": "fonts/"
   },
   rpc: {
     host: "localhost",

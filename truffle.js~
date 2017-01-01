@@ -4,22 +4,23 @@ module.exports = {
 	"app.js": [
       "javascripts/app.js"
     ],
-	"javascripts/spark-MD5.js":[
+	"spark-MD5.js":[
 	   "javascripts/spark-MD5.js"
 	],
-	"javascripts/jquery-3.1.1.min.js":[
+	"jquery-3.1.1.min.js":[
 	   "javascripts/jquery-3.1.1.min.js"
 	],
-	"javascripts/bootstrap.min.js":[
+	"bootstrap.min.js":[
 	   "javascripts/bootstrap.min.js"
 	],
-    "stylesheets/main.css": [
+    "main.css": [
       "stylesheets/main.css"
     ],
-	"stylesheets/bootstrap.min.css":[
+	"bootstrap.min.css":[
 	  "stylesheets/bootstrap.min.css"
 	],
     "images/": "images/"
+	"fonts/": "fonts/"
   },
   rpc: {
     host: "localhost",
