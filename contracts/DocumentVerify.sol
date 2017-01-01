@@ -1,15 +1,15 @@
 pragma solidity ^0.4.7;
 contract DocumentVerify {
     address owner;
-    uint latestDocument;
-    struct DocumentTransfer {
+    uint latestDocument; //认证的文件个数
+    struct DocumentTransfer {  //结构体，存储文件相关信息
         uint blockNumber;
         string hash;
         address from;
         address to;
         uint256 timeStamp;
     }
-    mapping(uint => DocumentTransfer) private history;
+    mapping(uint => DocumentTransfer) private history;  //建立键值映射
     mapping(string => bool) private usedHashes;
     mapping(string => address) private documentHashMap;
 	//事件，方便调试时显示信息

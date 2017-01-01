@@ -12,7 +12,7 @@ function getBlockChainInfo(){
 	$('.add-trade').html('');
 	doc.getLatest.call().then(function(ret){
 		if(ret == 0){
-			$('.add-trade').html('<tr><td colspan="5">当前账户暂无验证记录。</td></tr>');
+			$('.add-trade').html('<tr><td colspan="5">当前账户暂无认证记录。</td></tr>');
 		}else {
 			for(var i = ret; i >0; i--){
 				doc.getDocument.call(i).then(function(result){
@@ -27,7 +27,7 @@ function getBlockChainInfo(){
 					//时间戳
 					var newDate = new Date();
 					newDate.setTime(result[4]*1000);
-					var time = newDate.toLocaleString().substr(0,10);
+					var time = newDate.toLocaleString();
 					//var time = new Date(result[4].toNumber()).toLocaleString().substr(0,10);
 					var str = '<tr><td>'+blockNum+'</td><td>'
 								+currentHash+'</td><td>'
@@ -135,7 +135,7 @@ function transfer(){
 	//传入后台需验证：1.文件是否存在；2.账户是否存在。
 
 }
-
+//遍历后台账户，查询该账户toAccount是否存在
 function accountExist(toAccount){
 	//console.log(toAccount);
 	//console.log(accounts.length);
@@ -143,8 +143,8 @@ function accountExist(toAccount){
 	{
 		if(toAccount == accounts[i].toString())
 		{	
-			console.log(toAccount);
-			console.log(accounts[i].toString());	
+			//console.log(toAccount);
+			//console.log(accounts[i].toString());	
 			return true;
 		}
 			

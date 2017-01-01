@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>文件验证</title>
+	<title>文件认证</title>
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" type="text/css" href="./stylesheets/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./main.css">
 </head>
 <body>
 	<div class="main-wraper">
 		<div class="main-box">
 			<!-- 导航栏 -->
 			<ul class="nav nav-tabs " role="tablist" id="myTab">
-			  <li role="presentation" class="active"><a href="#local" role="tab" data-toggle="tab">文件hash验证</a></li>
+			  <li role="presentation" class="active"><a href="#local" role="tab" data-toggle="tab">文件hash认证</a></li>
 			  <li role="presentation"><a href="#url" role="tab" data-toggle="tab">文件所属权转移</a></li>
 			</ul>
 
 			<div class="tab-content">
 			  <div role="tabpanel" class="tab-pane active" id="local">
 			  	<div class="alert alert-info" role="alert">
-			  		当前账户:<span class="current-account"></span>,请选择本地文件进行区块链验证。
+			  		当前账户:<span class="current-account"></span>,请选择本地文件进行区块链认证。
 			  	</div>
 
 		  		<div class="row">
@@ -48,7 +48,7 @@
 			  				<label class="col-sm-3 col-xs-3">上次修改时间</label>
 			  				<span class="col-sm-9 col-xs-9 file-lastmodified"></span>
 			  			</div>
-			  			<button class="btn btn-primary local-file-btn verify">立即验证</button>
+			  			<button class="btn btn-primary local-file-btn verify">立即认证</button>
 			  		</div>
 		  		</div>
 		  		<h3>历史记录</h3>
