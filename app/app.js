@@ -25,15 +25,17 @@ function getBlockChainInfo(){
 					//接受账户
 					var to = result[3];
 					//时间戳
-					var newDate = new Date();
-					newDate.setTime(result[4]*1000);
-					var time = newDate.toLocaleString().split(' ');
+					//var newDate = new Date();
+					//newDate.setTime(result[4]*1000);
+					var time = getTime(result[4]);
+					//alert(getTime(result[4]));
+					//var time = newDate.toLocaleString();
 					//var time = new Date(result[4].toNumber()).toLocaleString().substr(0,10);
 					var str = '<tr><td>'+blockNum+'</td><td>'
 								+currentHash+'</td><td>'
 								+from+'</td><td>'
 								+to+'</td><td>'
-								+time[0]+'</td></tr>';
+								+time+'</td></tr>';
 					$('.add-trade').append(str);
 				})
 			}
@@ -70,6 +72,20 @@ function getBlockChainInfo(){
 	// 						+result[i].time.substr(0,10)+'</td></tr>';
 	// 	$('.add-trade').append(str);
 	// }
+}
+
+//处理时间戳转化为特定的时间格式yyyy-mm-dd hh:ii:ss
+function getTime(unixTime) {
+	var t,y,m,d,h,i,s;
+	t = new Date(unixTime*1000);
+	y = t.getFullYear();
+	m = t.getMonth()+1;
+	d = t.getDate();
+	h = t.getHours();
+	i = t.getMinutes();
+	s = t.getSeconds();
+	//定义时间格式
+	return y+'-'+(m<10?'0'+m:m)+'-'+(d<10?'0'+d:d)+' '+(h<10?'0'+h:h)+':'+(i<10?'0'+i:i)+':'+(s<10?'0'+s:s);
 }
 //验证
 function docVerify(){
